@@ -5,7 +5,7 @@ import os
 
 
 
-# Device mapping - ALSA hardware devices for each sound card.
+# ALSA hardware device mapping for each sound card.
 DEVICES = {
     "card1": "hw:2,0",
     "card2": "hw:3,0",
@@ -16,18 +16,19 @@ DEVICES = {
     "card7": "hw:8,0",
     "card8": "hw:9,0",
     "card9": "hw:10,0",
-    "card10": "hw:11,0",
+    "card10": "hw:11,0"
 }
 
 # Audio files to play.
-AUDIO_FILES = [os.path.join("sound_files", f) for f in os.listdir("sound_files")]
+AUDIO_FILES = \
+    [os.path.join("sound_files", f) for f in os.listdir("sound_files")]
 
 
 def play_audio(
     device : str,
     audio_file : str) -> None:
     """
-    Play audio on a specific device in a loop
+    Play audio on a specific device in a loop.
     """
     while True:
         try:
@@ -37,7 +38,7 @@ def play_audio(
 
         except subprocess.CalledProcessError:
             print(f"Error playing {audio_file} on {device}")
-            time.sleep(1)  # Wait before retrying
+            time.sleep(1)
 
         except KeyboardInterrupt:
             break
@@ -62,8 +63,8 @@ if __name__ == "__main__":
             thread = threading.Thread(
                 target=play_audio,
                 args=(device, AUDIO_FILES[i]),
-                daemon=True
-            )
+                daemon=True)
+
             threads.append(thread)
 
     # Start all threads.
