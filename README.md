@@ -1,4 +1,4 @@
-# Voices
+# Voices 🗣️ 📞
 
 Many voices played simultaneously through telephone handsets.
 
@@ -56,7 +56,6 @@ SUBSYSTEM=="sound", ENV{ID_PATH}=="platform-xhci-hcd.0-usb-0:1.1.4:1.0", SYMLINK
 SUBSYSTEM=="sound", ENV{ID_PATH}=="platform-xhci-hcd.0-usb-0:1.2.4:1.0", SYMLINK+="soundcard/soundcard_10"
 
 
-
 # Environment variables for scripting
 SUBSYSTEM=="sound", ENV{ID_PATH}=="platform-xhci-hcd.0-usb-0:1.1.1:1.0", ENV{SOUNDCARD_NAME}="soundcard_1"
 
@@ -80,12 +79,11 @@ SUBSYSTEM=="sound", ENV{ID_PATH}=="platform-xhci-hcd.0-usb-0:1.2.4:1.0", ENV{SOU
 ```
 
 Apply the rules:
-```
-sudo udevadm control --reload-rules
-sudo udevadm trigger
-sudo mkdir -p /dev/soundcard
-ls -la /dev/soundcard/
-```
+
+- `sudo udevadm control --reload-rules`
+- `sudo udevadm trigger`
+- `sudo mkdir -p /dev/soundcard`
+- `ls -la /dev/soundcard/`
 
 Verify the mapping:
 - `chmod +x ~/check_soundcards.sh`
