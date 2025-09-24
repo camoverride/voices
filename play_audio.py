@@ -1,10 +1,11 @@
-# persistent_audio_player.py
 import os
 import random
 import subprocess
 import sys
 import threading
 import time
+
+
 
 # Use persistent ALSA names instead of card numbers
 DEVICES = {
@@ -20,58 +21,78 @@ DEVICES = {
     10: "port10"
 }
 
-def play_audio(device_index: int, audio_file_base_dir: str, test_mode: bool) -> None:
+
+def play_audio(
+        device_index: int,
+        audio_file_base_dir: str,
+        test_mode: bool
+        ) -> None:
     """
-    Play audio on a specific device in a loop using persistent ALSA names.
+    Play audio on a specific device in a loop.
+
+    Parameters
+    ----------
+    device_index: int
+        The index of the device as indicated in `DEVICES`
+    audio_file_base_dir: str
+        The path to the directory containing all audio files. This directory
+        should consist of 10 files named `1` through `10` corresponding to
+        each sound card. Inside should be a single `test_{index}.wav` and
+        an actual audio file that is intended to be played.
+    test_mode: bool
+        True
+            Plays a test file to help identify the sound card.
+        False
+            Plays the other file. NOTE: there should only be one additional
+            file, but if there's more than one, a file is randomly selected.
+
+    Returns
+    -------
+    None
+        Continuously plays audio.
     """
-    # Get the persistent ALSA device name
-    device_name = DEVICES[device_index]
-    
     # Get the path to the folder corresponding to this sound card.
     play_dir = f"{audio_file_base_dir}/{device_index}"
 
     # If test mode, play the test file.
     if test_mode:
         audio_file_path = f"{play_dir}/test_{device_index}.wav"
+
+    # If not test mode, play the other file (not the test file).
+    # NOTE: if more than one non-test file is present
+    # randomly select a file to play.
     else:
         audio_files = os.listdir(play_dir)
         audio_files = [f for f in audio_files if f != f"test_{device_index}.wav"]
         choice = random.choice(audio_files)
+
         audio_file_path = f"{play_dir}/{choice}"
 
-    # Play the file on a loop using the persistent ALSA name
+    # Get the actual name of the device.
+    device_name = DEVICES[device_index]
+
+    # Play the file on a loop.
     while True:
         try:
             cmd = ["aplay", "-D", device_name, "-q", audio_file_path]
             subprocess.run(cmd, check=True)
-            print(f"Playing {audio_file_path} on persistent device {device_name} (physical port {device_index})")
+
+            print(f"Playing {audio_file_path} on {device_name}")
 
         except subprocess.CalledProcessError:
-            print(f"Error playing {audio_file_path} on {device_name}")
+            print(f"Error playing {audio_file_path} on {audio_file_path}")
+
             time.sleep(1)
 
         except KeyboardInterrupt:
             break
 
-def verify_devices():
-    """Verify that all persistent devices are available"""
-    print("Verifying persistent ALSA devices...")
-    for port in range(1, 11):
-        device_name = DEVICES[port]
-        test_cmd = ["aplay", "-D", device_name, "-l"]
-        result = subprocess.run(test_cmd, capture_output=True, text=True)
-        
-        if result.returncode == 0:
-            print(f"✓ Port {port} ({device_name}): Working")
-        else:
-            print(f"✗ Port {port} ({device_name}): Failed - {result.stderr}")
+
 
 if __name__ == "__main__":
+
     print("Starting simultaneous audio playback on all 10 sound cards...")
-    
-    # Verify devices first
-    verify_devices()
-    
+
     # Check if we are using test mode.
     IS_TEST = "TEST" in sys.argv
 
@@ -82,6 +103,7 @@ if __name__ == "__main__":
             target=play_audio,
             args=(device_index, "sound_files", IS_TEST),
             daemon=True)
+
         threads.append(thread)
 
     # Start all threads.
