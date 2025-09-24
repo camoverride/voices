@@ -5,11 +5,13 @@ import time
 
 def get_current_usb_audio_cards():
     """
-    Returns a set of detected ALSA USB audio card identifiers, e.g. 'card 1', 'card 2'.
+    Returns a set of detected ALSA USB audio card identifiers,
+    e.g. 'card 1', 'card 2'.
     """
     result = subprocess.run(['aplay', '-l'], capture_output=True, text=True)
     lines = result.stdout.split('\n')
     cards = set()
+
     for line in lines:
         if 'USB Audio' in line and 'card' in line:
             # Example line: card 1: Audio [USB Audio], device 0: ...
@@ -20,9 +22,14 @@ def get_current_usb_audio_cards():
                 cards.add(card_id)
             except (ValueError, IndexError):
                 continue
+
     return cards
 
-def identify_ports_automatically(expected_ports=10, poll_interval=0.5, timeout=30):
+
+def identify_ports_automatically(
+        expected_ports=10,
+        poll_interval=0.1,
+        timeout=1000):
     print("Starting automatic port identification...")
     print("Please plug in sound cards sequentially, one after another.")
     print("Waiting for devices...")
@@ -36,6 +43,7 @@ def identify_ports_automatically(expected_ports=10, poll_interval=0.5, timeout=3
         current_cards = get_current_usb_audio_cards()
 
         new_cards = current_cards - detected_cards
+
         if new_cards:
             for card in sorted(new_cards):  # just in case multiple appear
                 mapped_ports[next_port_to_assign] = card
@@ -45,6 +53,7 @@ def identify_ports_automatically(expected_ports=10, poll_interval=0.5, timeout=3
                     break
             detected_cards = current_cards
             last_change_time = time.time()
+
         else:
             # No new cards detected
             if time.time() - last_change_time > timeout:
@@ -59,5 +68,8 @@ def identify_ports_automatically(expected_ports=10, poll_interval=0.5, timeout=3
 
     return mapped_ports
 
+
+
 if __name__ == "__main__":
+
     identify_ports_automatically()

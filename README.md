@@ -5,7 +5,13 @@ Many voices played simultaneously through telephone handsets.
 
 ## Hardware setup
 
-
+- Run this code on a Raspberry Pi 5.
+- Plug a USB 3.0 hub with 10 ports into one of the Pi 5's USB 3.0 ports.
+- Plug a sound card into every port.
+- Plug a 3.5mm jack into the audio (green) port on every sound card.
+- Splice the 3.5mm jack's internal to red and ground to black.
+- Solder this wire to a rj9 jack (red to red, black to green).
+- Plug into a phone handset.
 
 
 ## Software setup
