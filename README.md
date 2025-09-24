@@ -7,7 +7,7 @@ Many voices played simultaneously through telephone handsets.
 
 First plug in a powered USB hub with 10 ports.
 
-Then Plug a sound card into each port.
+Then plug a sound card into each port.
 
 Get detailed information for each USB sound device (Notice that `ENV{ID_PATH}` differs in each of these):
 
@@ -86,10 +86,12 @@ Apply the rules:
 - `ls -la /dev/soundcard/`
 
 Verify the mapping:
+
 - `chmod +x ~/check_soundcards.sh`
 - `./check_soundcards.sh`
 
-The mappings will persist through reboots **BUT** the order of the mappings will likely **not** correspond to the physical order of the USB sound cards. So mark each sound card with its mapping (1, 2, 3, etc).
+The mappings will persist through reboots **BUT** the order of the mappings will likely **NOT
+** correspond to the physical order of the USB sound cards. So mark each sound card with its mapping (1, 2, 3, etc).
 
 
 ## Software setup
@@ -100,4 +102,27 @@ The mappings will persist through reboots **BUT** the order of the mappings will
 
 ## Test
 
-- `python play_audio.py`
+- `python play_audio.py TEST`
+
+
+## Run in Production
+
+There must be a sound file for every sound card. Place wav files in `sound_files/{card_num}/` where `card_num` corresponds to the index of the sound card. For example: `sound_files/1/birds_singing.wav`
+
+Start a system service:
+
+- `mkdir -p ~/.config/systemd/user`
+- `cat voices.service > ~/.config/systemd/user/voices.service`
+- `systemctl --user daemon-reload`
+- `systemctl --user enable voices.service`
+- `systemctl --user start voices.service`
+- `sudo loginctl enable-linger $(whoami)`
+
+Show the logs:
+
+- `journalctl --user -u voices.service`
+
+Clear logs:
+
+- `sudo journalctl --unit=voices.service --rotate`
+- `sudo journalctl --vacuum-time=1s`
