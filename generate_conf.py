@@ -4,7 +4,8 @@ import re
 
 
 
-ASOUND_CONF_PATH = "/etc/asound.conf"  # Change to ~/.asoundrc for user-space
+ASOUND_CONF_PATH = os.path.expanduser("~/.asoundrc")
+
 
 def get_card_usb_paths():
     """

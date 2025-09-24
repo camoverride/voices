@@ -1,9 +1,12 @@
-# setup_physical_mapping.py
 import subprocess
 import time
 
+
+
 def identify_physical_ports():
-    """Help identify which physical port corresponds to which ALSA name"""
+    """
+    Help identify which physical port corresponds to which ALSA name
+    """
     print("Physical Port Identification Utility")
     print("=====================================")
     print()
@@ -14,7 +17,8 @@ def identify_physical_ports():
     port_mapping = {}
     
     for physical_port in range(1, 11):
-        input(f"Plug a sound card into physical port {physical_port} (left-to-right), then press Enter...")
+        input(f"Plug a sound card into physical port {physical_port} \
+              (left-to-right), then press Enter...")
         
         # Wait for device to be detected
         time.sleep(2)
