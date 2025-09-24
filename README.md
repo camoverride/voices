@@ -126,3 +126,4 @@ Clear logs:
 
 - `sudo journalctl --unit=voices.service --rotate`
 - `sudo journalctl --vacuum-time=1s`
+
