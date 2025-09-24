@@ -7,17 +7,18 @@ import time
 
 
 
+# Use persistent ALSA names instead of card numbers
 DEVICES = {
-    1: "plughw:2,0",
-    2: "plughw:3,0",
-    3: "plughw:4,0",
-    4: "plughw:5,0",
-    5: "plughw:6,0",
-    6: "plughw:7,0",
-    7: "plughw:8,0",
-    8: "plughw:9,0",
-    9: "plughw:10,0",
-    10: "plughw:11,0"
+    1: "port1",
+    2: "port2", 
+    3: "port3",
+    4: "port4",
+    5: "port5",
+    6: "port6",
+    7: "port7",
+    8: "port8",
+    9: "port9",
+    10: "port10"
 }
 
 
