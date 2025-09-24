@@ -8,16 +8,16 @@ import time
 
 
 DEVICES = {
-    1: "hw:Audio,0",
-    2: "hw:Audio_1,0",
-    3: "hw:Audio_2,0",
-    4: "hw:Audio_3,0",
-    5: "hw:Audio_4,0",
-    6: "hw:Audio_5,0",
-    7: "hw:Audio_6,0",
-    8: "hw:Audio_7,0",
-    9: "hw:Audio_8,0",
-    10: "hw:Audio_9,0"
+    1: "hw:2,0",
+    2: "hw:3,0",
+    3: "hw:4,0",
+    4: "hw:5,0",
+    5: "hw:6,0",
+    6: "hw:7,0",
+    7: "hw:8,0",
+    8: "hw:9,0",
+    9: "hw:10,0",
+    10: "hw:11,0"
 }
 
 
