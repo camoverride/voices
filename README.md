@@ -22,6 +22,9 @@ Many voices played simultaneously through telephone handsets.
 
 ## Test
 
+- Power on the Pi. Wait approximately 1 minute for software to load.
+- Make sure all the sound cards are either unplugged or powered off, as we need to re-map them at start-up.
+- Power on/plug in each of the USB sound card ports sequentially, 1-10, waiting 2 seconds between each.
 - `python play_audio.py TEST`
 
 
