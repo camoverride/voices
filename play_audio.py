@@ -8,16 +8,16 @@ import time
 
 
 DEVICES = {
-    1: "hw:2,0",
-    2: "hw:3,0",
-    3: "hw:4,0",
-    4: "hw:5,0",
-    5: "hw:6,0",
-    6: "hw:7,0",
-    7: "hw:8,0",
-    8: "hw:9,0",
-    9: "hw:10,0",
-    10: "hw:11,0"
+    1: "plughw:2,0",
+    2: "plughw:3,0",
+    3: "plughw:4,0",
+    4: "plughw:5,0",
+    5: "plughw:6,0",
+    6: "plughw:7,0",
+    7: "plughw:8,0",
+    8: "plughw:9,0",
+    9: "plughw:10,0",
+    10: "plughw:11,0"
 }
 
 
