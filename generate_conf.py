@@ -34,20 +34,23 @@ def usb_sort_key(usb_path):
 def generate_asound_conf():
     cards = get_card_usb_paths()
 
-    # Sort by physical USB port topology
-    sorted_cards = sorted(cards, key=lambda x: usb_sort_key(x[1]))
+    # Sort by card index ascending
+    sorted_cards = sorted(cards, key=lambda x: x[0])
 
-    with open(ASOUND_CONF_PATH, 'w') as f:
+    with open(ASOUND_CONF_PATH, "w") as f:
         f.write("# Auto-generated ~/.asoundrc\n\n")
         for i, (card_index, _) in enumerate(sorted_cards):
-            logical_name = f"port{i+1}"
+            logical_name = f"port{i + 1}"
+
             f.write(f"""pcm.{logical_name} {{
     type plug
     slave.pcm {{
         type hw
         card {card_index}
     }}
-}}\n\n""")
+}}
+
+""")
     print(f"✓ Generated {len(sorted_cards)} device mappings in {ASOUND_CONF_PATH}")
 
 
