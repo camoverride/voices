@@ -14,9 +14,7 @@ DEVICES = {
     5: "MyDev_5",
     6: "MyDev_6",
     7: "MyDev_7",
-    8: "MyDev_8",
-    9: "MyDev_9",
-    10: "MyDev_10"
+    8: "MyDev_8"
 }
 
 
