@@ -15,12 +15,11 @@ DEVICES = {
     6: "MyDev_6",
     7: "MyDev_7",
     8: "MyDev_8",
-    8: "MyDev_9"
 }
 
 
 if __name__ == "__main__":
-    print("Starting simultaneous audio playback on all 9 sound cards...")
+    print("Starting simultaneous audio playback on all 8 sound cards...")
 
     # Check if we are using test mode.
     IS_TEST = "TEST" in sys.argv
