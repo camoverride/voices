@@ -5,24 +5,13 @@ import time
 
 
 
-# Use persistent ALSA names instead of card numbers.
-DEVICES = {
-    1: "MyDev_1",
-    2: "MyDev_2", 
-    3: "MyDev_3",
-    4: "MyDev_4",
-    5: "MyDev_5",
-    6: "MyDev_6",
-    7: "MyDev_7",
-    8: "MyDev_8",
-    9: "MyDev_9",
-    10: "MyDev_10"
-}
+
 
 
 def play_audio(
         device_index: int,
         audio_file_base_dir: str,
+        devices : dict,
         test_mode: bool
         ) -> None:
     """
@@ -37,6 +26,14 @@ def play_audio(
         should consist of 10 files named `1` through `10` corresponding to
         each sound card. Inside should be a single `test_{index}.wav` and
         an actual audio file that is intended to be played.
+    devices : dict
+        A dict of all the devices, like:
+            {
+                1: "MyDev_1",
+                2: "MyDev_2", 
+                3: "MyDev_3",
+                ...
+            }
     test_mode: bool
         True
             Plays a test file to help identify the sound card.
@@ -67,7 +64,7 @@ def play_audio(
         audio_file_path = f"{play_dir}/{choice}"
 
     # Get the actual name of the device.
-    device_name = DEVICES[device_index]
+    device_name = devices[device_index]
 
     # Play the file on a loop.
     while True:

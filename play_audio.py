@@ -1,8 +1,23 @@
 import sys
 import threading
 import time
-from _audio_utils import DEVICES, play_audio
+from _audio_utils import play_audio
 
+
+
+# Use persistent ALSA names instead of card numbers.
+DEVICES = {
+    1: "MyDev_1",
+    2: "MyDev_2", 
+    3: "MyDev_3",
+    4: "MyDev_4",
+    5: "MyDev_5",
+    6: "MyDev_6",
+    7: "MyDev_7",
+    8: "MyDev_8",
+    9: "MyDev_9",
+    10: "MyDev_10"
+}
 
 
 if __name__ == "__main__":
@@ -16,7 +31,7 @@ if __name__ == "__main__":
     for device_index in DEVICES:
         thread = threading.Thread(
             target=play_audio,
-            args=(device_index, "sound_files", IS_TEST),
+            args=(device_index, "sound_files", DEVICES, IS_TEST),
             daemon=True)
 
         threads.append(thread)
