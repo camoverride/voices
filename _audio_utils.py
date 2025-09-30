@@ -1,24 +1,22 @@
 import os
 import random
 import subprocess
-import sys
-import threading
 import time
 
 
 
 # Use persistent ALSA names instead of card numbers.
 DEVICES = {
-    1: "port1",
-    2: "port2", 
-    3: "port3",
-    4: "port4",
-    5: "port5",
-    6: "port6",
-    7: "port7",
-    8: "port8",
-    9: "port9",
-    10: "port10"
+    1: "MyDev_1",
+    2: "MyDev_2", 
+    3: "MyDev_3",
+    4: "MyDev_4",
+    5: "MyDev_5",
+    6: "MyDev_6",
+    7: "MyDev_7",
+    8: "MyDev_8",
+    9: "MyDev_9",
+    10: "MyDev_10"
 }
 
 

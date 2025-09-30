@@ -2,16 +2,10 @@ import sys
 import threading
 import time
 from _audio_utils import DEVICES, play_audio
-from _sound_card_utils import identify_ports_automatically
 
 
 
 if __name__ == "__main__":
-    # Start the setup phase by manually assigning audio devices.
-    # This blocks until a human has assigned the devices.
-    # NOTE: if any sound cards are powered on during startup, this will cause trouble!
-    identify_ports_automatically()
-
     print("Starting simultaneous audio playback on all 10 sound cards...")
 
     # Check if we are using test mode.
