@@ -19,13 +19,17 @@ Many voices played simultaneously through telephone handsets.
 
 Create udev rules [link](https://www.alsa-project.org/wiki/Changing_card_IDs_with_udev) and save them to `audio.rules`:
 
-- `sudo cat audio.rules > /lib/udev/rules.d/85-my-usb-audio.rules`
+- `sudo cat rules_files/audio_{N}.rules > /lib/udev/rules.d/85-my-usb-audio.rules`
 - `sudo udevadm control --reload-rules`
 - `sudo udevadm trigger`
 
 Create alsa aliases:
 
-- `sudo cat alsa.conf > /etc/asound.conf`
+- `sudo cat rules_files/alsa.conf > /etc/asound.conf`
+
+Reboot for rules to take effect:
+
+- `sudo reboot`
 
 Test alsa aliases (only first three shown):
 
@@ -41,9 +45,6 @@ Set up python:
 
 ## Test
 
-- Power on the Pi. Wait approximately 1 minute for software to load.
-- Make sure all the sound cards are either unplugged or powered off, as we need to re-map them at start-up.
-- Power on/plug in each of the USB sound card ports sequentially, 1-10, waiting 2 seconds between each.
 - `python play_audio.py TEST`
 
 
